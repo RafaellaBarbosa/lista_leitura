@@ -1,0 +1,13 @@
+{
+
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "lista_leitura",
+            "request": "launch",
+            "type": "dart"
+        },
+     
+    ]
+}
