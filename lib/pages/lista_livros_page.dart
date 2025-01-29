@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lista_leitura/models/livro_model.dart';
+import 'package:lista_leitura/routes.dart';
 import 'package:lista_leitura/widgets/lista_livros.dart';
 
 import '../widgets/linha_horizontal.dart';
@@ -39,13 +40,19 @@ class ListaLivrosPage extends StatelessWidget {
                             0xff498c9a,
                           ),
                           icon: Icon(Icons.add),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                              AppRoutes.formularioLivro,
+                            );
+                          },
                         )
                       ],
                     ),
                   ),
                   LinhaHorizontal(),
-                  ListaLivros(listaLivros: livros,),
+                  ListaLivros(
+                    listaLivros: livros,
+                  ),
                   LinhaHorizontal(),
                 ],
               ),
