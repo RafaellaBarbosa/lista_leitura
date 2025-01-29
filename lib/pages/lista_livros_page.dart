@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:lista_leitura/models/livro_model.dart';
-import 'package:lista_leitura/routes.dart';
+import 'package:lista_leitura/pages/formulario_livro_page.dart';
 import 'package:lista_leitura/widgets/lista_livros.dart';
 
 import '../widgets/linha_horizontal.dart';
 
-class ListaLivrosPage extends StatelessWidget {
+class ListaLivrosPage extends StatefulWidget {
   const ListaLivrosPage({super.key});
+
+  @override
+  State<ListaLivrosPage> createState() => _ListaLivrosPageState();
+}
+
+class _ListaLivrosPageState extends State<ListaLivrosPage> {
+  late List<LivroModel> meusLivros;
+
+  @override
+  void initState() {
+    meusLivros = [];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +54,13 @@ class ListaLivrosPage extends StatelessWidget {
                           ),
                           icon: Icon(Icons.add),
                           onPressed: () {
-                            Navigator.of(context).pushNamed(
-                              AppRoutes.formularioLivro,
-                            );
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  FormularioLivroPage(onCadastrar: (livro) {
+                                setState(() {});
+                                meusLivros.add(livro);
+                              }),
+                            ));
                           },
                         )
                       ],
@@ -51,9 +68,9 @@ class ListaLivrosPage extends StatelessWidget {
                   ),
                   LinhaHorizontal(),
                   ListaLivros(
-                    listaLivros: livros,
+                    listaLivros: meusLivros,
                   ),
-                  LinhaHorizontal(),
+                  if (meusLivros.isNotEmpty) LinhaHorizontal(),
                 ],
               ),
             ),

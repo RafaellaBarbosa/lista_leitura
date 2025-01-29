@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: GoogleFonts.kalamTextTheme(Theme.of(context).textTheme),
-        // colorScheme: ColorScheme.fromSeed(
-        //   seedColor: Color(0xfff1ef88),
-        // ),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Color(0xfff1ef88),
+        ),
         useMaterial3: true,
       ),
     );
