@@ -13,11 +13,11 @@ class ListaLivrosPage extends StatefulWidget {
 }
 
 class _ListaLivrosPageState extends State<ListaLivrosPage> {
-  late List<LivroModel> meusLivros;
+  late Set<LivroModel> meusLivros;
 
   @override
   void initState() {
-    meusLivros = [];
+    meusLivros = {};
     super.initState();
   }
 
@@ -54,13 +54,16 @@ class _ListaLivrosPageState extends State<ListaLivrosPage> {
                           ),
                           icon: Icon(Icons.add),
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  FormularioLivroPage(onCadastrar: (livro) {
-                                setState(() {});
-                                meusLivros.add(livro);
-                              }),
-                            ));
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => FormularioLivroPage(
+                                  onCadastrar: (livro) {
+                                    setState(() {});
+                                    meusLivros.add(livro);
+                                  },
+                                ),
+                              ),
+                            );
                           },
                         )
                       ],
@@ -69,6 +72,10 @@ class _ListaLivrosPageState extends State<ListaLivrosPage> {
                   LinhaHorizontal(),
                   ListaLivros(
                     listaLivros: meusLivros,
+                    onCadastrar: (livro) {
+                      setState(() {});
+                      meusLivros.add(livro);
+                    },
                   ),
                   if (meusLivros.isNotEmpty) LinhaHorizontal(),
                 ],
@@ -85,5 +92,11 @@ class _ListaLivrosPageState extends State<ListaLivrosPage> {
         ),
       ),
     );
+  }
+
+  void adicionarLivro(LivroModel livro) {
+    setState(() {
+      meusLivros.add(livro);
+    });
   }
 }

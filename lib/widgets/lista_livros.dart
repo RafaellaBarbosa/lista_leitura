@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lista_leitura/pages/formulario_livro_page.dart';
 import 'package:lista_leitura/widgets/linha_horizontal.dart';
 
 import '../models/livro_model.dart';
@@ -7,9 +8,11 @@ class ListaLivros extends StatelessWidget {
   const ListaLivros({
     super.key,
     required this.listaLivros,
+    required this.onCadastrar,
   });
 
-  final List<LivroModel> listaLivros;
+  final Set<LivroModel> listaLivros;
+  final Function(LivroModel) onCadastrar;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +21,16 @@ class ListaLivros extends StatelessWidget {
       shrinkWrap: true,
       itemCount: listaLivros.length,
       itemBuilder: (context, index) {
-        var livro = listaLivros[index];
+        var livro = listaLivros.elementAt(index);
         return ListTile(
+          onTap: () => Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) {
+              return FormularioLivroPage(
+                onCadastrar: onCadastrar,
+                livro: livro,
+              );
+            },
+          )),
           visualDensity: VisualDensity.compact,
           contentPadding: EdgeInsets.all(0),
           title: Padding(
