@@ -15,9 +15,16 @@ class ListaLivrosPage extends StatefulWidget {
 class _ListaLivrosPageState extends State<ListaLivrosPage> {
   late Set<LivroModel> meusLivros;
 
+  late Function(LivroModel) onCadastrar;
+
   @override
   void initState() {
     meusLivros = {};
+    onCadastrar = (LivroModel livroModel) {
+      setState(() {
+        meusLivros.add(livroModel);
+      });
+    };
     super.initState();
   }
 
@@ -56,11 +63,8 @@ class _ListaLivrosPageState extends State<ListaLivrosPage> {
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => FormularioLivroPage(
-                                  onCadastrar: (livro) {
-                                    setState(() {});
-                                    meusLivros.add(livro);
-                                  },
+                                builder: (_) => FormularioLivroPage(
+                                  onCadastrar: onCadastrar,
                                 ),
                               ),
                             );
@@ -72,10 +76,7 @@ class _ListaLivrosPageState extends State<ListaLivrosPage> {
                   LinhaHorizontal(),
                   ListaLivros(
                     listaLivros: meusLivros,
-                    onCadastrar: (livro) {
-                      setState(() {});
-                      meusLivros.add(livro);
-                    },
+                    onCadastrar: onCadastrar,
                   ),
                   if (meusLivros.isNotEmpty) LinhaHorizontal(),
                 ],
@@ -92,11 +93,5 @@ class _ListaLivrosPageState extends State<ListaLivrosPage> {
         ),
       ),
     );
-  }
-
-  void adicionarLivro(LivroModel livro) {
-    setState(() {
-      meusLivros.add(livro);
-    });
   }
 }
