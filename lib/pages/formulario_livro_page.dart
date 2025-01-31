@@ -27,7 +27,7 @@ class _FormularioLivroPageState extends State<FormularioLivroPage> {
 
   @override
   void initState() {
-    livro = widget.livro ?? LivroModel(id: Random().nextInt(255));
+    livro = widget.livro ?? LivroModel(id: Random().nextInt(600));
     tituloController = TextEditingController(text: livro.titulo);
     descricaoController = TextEditingController(text: livro.descricao);
     lido = livro.lido;
@@ -123,7 +123,9 @@ class _FormularioLivroPageState extends State<FormularioLivroPage> {
                         titulo: tituloController.text,
                         descricao: descricaoController.text,
                         lido: lido,
+                        id: livro.id,
                       );
+
                       widget.onCadastrar(livro);
                       Navigator.of(context).pop();
                     }

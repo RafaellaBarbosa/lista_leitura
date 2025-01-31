@@ -9,10 +9,12 @@ class ListaLivros extends StatelessWidget {
     super.key,
     required this.listaLivros,
     required this.onCadastrar,
+    required this.onDeletar,
   });
 
-  final Set<LivroModel> listaLivros;
+  final List<LivroModel> listaLivros;
   final Function(LivroModel) onCadastrar;
+  final Function(LivroModel) onDeletar;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +23,19 @@ class ListaLivros extends StatelessWidget {
       shrinkWrap: true,
       itemCount: listaLivros.length,
       itemBuilder: (context, index) {
-        var livro = listaLivros.elementAt(index);
+        final livro = listaLivros.elementAt(index);
         return ListTile(
+          trailing: Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: IconButton(
+              icon: Icon(Icons.delete_outline),
+              onPressed: () {
+                onDeletar(livro);
+              },
+            ),
+          ),
           onTap: () => Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) {
+            builder: (_) {
               return FormularioLivroPage(
                 onCadastrar: onCadastrar,
                 livro: livro,

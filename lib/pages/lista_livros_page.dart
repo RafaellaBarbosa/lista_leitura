@@ -13,28 +13,37 @@ class ListaLivrosPage extends StatefulWidget {
 }
 
 class _ListaLivrosPageState extends State<ListaLivrosPage> {
-  late Set<LivroModel> meusLivros;
-
-  late Function(LivroModel) onCadastrar;
+  late List<LivroModel> meusLivros;
 
   @override
   void initState() {
-    meusLivros = {};
-    onCadastrar = (LivroModel livroModel) {
-      setState(() {
-        meusLivros.add(livroModel);
-      });
-    };
     super.initState();
+    meusLivros = []; 
+  }
+
+  void onCadastrar(LivroModel livroModel) {
+    setState(() {
+      int index = meusLivros.indexWhere((livro) => livro.id == livroModel.id);
+      if (index == -1) {
+        meusLivros.add(livroModel);
+      } else {
+        meusLivros[index] =
+            livroModel; 
+      }
+    });
+  }
+
+  void onDeletar(LivroModel livroModel) {
+    setState(() {
+      meusLivros.removeWhere((livro) => livro.id == livroModel.id);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(
-          0xfff1ef88,
-        ),
+        backgroundColor: Color(0xfff1ef88),
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -48,17 +57,13 @@ class _ListaLivrosPageState extends State<ListaLivrosPage> {
                         Text(
                           'Lista de leitura...',
                           style: TextStyle(
-                            color: Color(
-                              0xff498c9a,
-                            ),
+                            color: Color(0xff498c9a),
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         IconButton(
-                          color: Color(
-                            0xff498c9a,
-                          ),
+                          color: Color(0xff498c9a),
                           icon: Icon(Icons.add),
                           onPressed: () {
                             Navigator.of(context).push(
@@ -69,7 +74,7 @@ class _ListaLivrosPageState extends State<ListaLivrosPage> {
                               ),
                             );
                           },
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -77,6 +82,7 @@ class _ListaLivrosPageState extends State<ListaLivrosPage> {
                   ListaLivros(
                     listaLivros: meusLivros,
                     onCadastrar: onCadastrar,
+                    onDeletar: onDeletar,
                   ),
                   if (meusLivros.isNotEmpty) LinhaHorizontal(),
                 ],
@@ -88,7 +94,7 @@ class _ListaLivrosPageState extends State<ListaLivrosPage> {
                 color: Colors.red[200],
                 thickness: 3,
               ),
-            )
+            ),
           ],
         ),
       ),
