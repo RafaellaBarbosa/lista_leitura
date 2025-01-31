@@ -19,6 +19,20 @@ class LivroModel {
 
   @override
   String toString() {
-    return 'titulo: $titulo, descricao: $descricao, lido: $lido';
+    return 'id: $id, titulo: $titulo, descricao: $descricao, lido: $lido';
+  }
+
+  LivroModel copyWith({
+    int? id,
+    String? titulo,
+    String? descricao,
+    bool? lido,
+  }) {
+    return LivroModel(
+      id: id ?? this.id,
+      titulo: titulo ?? this.titulo,
+      descricao: descricao ?? this.descricao,
+      lido: lido ?? this.lido,
+    );
   }
 }
